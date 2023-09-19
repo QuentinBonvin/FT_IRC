@@ -10,7 +10,7 @@ CXX = g++
 CXXFLAGS = -Wall -Werror -Wextra -g -std=c++98
 SANITIZE = -fsanitize=address -fno-omit-frame-pointer
 OBJ = ${SRCS:.cpp=.o}
-ARGS =	6667 test
+ARGS =	6667 1234
 # fin de la declatation des variables
 
 all : ${NAME}
