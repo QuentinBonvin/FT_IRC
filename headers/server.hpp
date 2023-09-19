@@ -23,6 +23,7 @@
 #include <algorithm>
 #include "user.hpp"
 #include "client.hpp"
+#include <set>
 
 using namespace std;
 

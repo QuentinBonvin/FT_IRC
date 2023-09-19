@@ -387,16 +387,15 @@ void Client::pass(){
 
 void Client::quit() {
 	int socketUser = getClientSocket();
-
+	cout << "socketuser =" << socketUser << endl;
 	for (std::map<int, User>::iterator it = _user.begin(); it != _user.end(); ++it) {
-
 		User currentUser = it->second;
 		if (currentUser.getSocketUser() != socketUser) {
 			std::string response = ":" + _user[socketUser].getNickName() + "!~" + _user[socketUser].getUserName() + "@localhost " + "QUIT :Quit: Leaving\r\n";
 			sendToClient(currentUser.getSocketUser(), response);
 		}
 	}
-	eraseUser(socketUser);
+//	eraseUser(socketUser);
 	_cmd.clear();
 }
 

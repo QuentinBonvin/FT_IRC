@@ -87,7 +87,6 @@ int Client::addUser(string buffer, int socketUser) {
 			_user[socketUser].setUserName("User" + sock);
 			_user[socketUser].setSocketUser(socketUser);
 			_user[socketUser].setUserCreate(true);
-
 		}
 		return (0);
 	}

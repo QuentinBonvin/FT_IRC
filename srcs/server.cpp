@@ -78,6 +78,7 @@ void Server::waitToNewConnection() {
 	fd_set readfds;
 	Client client;
 	std::map<int, std::string> clientBuffers;
+	std::set<int> closedSockets;
 
 	while (true) {
 		FD_ZERO(&readfds);
@@ -108,6 +109,7 @@ void Server::waitToNewConnection() {
 		}
 		for (size_t i = 0; i < _userSocket.size(); i++) {
 			int sd = _userSocket[i];
+
 			char buffer[1024];
 			memset(buffer, '\0', strlen(buffer));
 			if (FD_ISSET(sd, &readfds)) {
@@ -117,7 +119,8 @@ void Server::waitToNewConnection() {
 					clientBuffers[sd].erase();
 					close(sd);
 					_userSocket.erase(_userSocket.begin() + (int)i);
-				} else {
+				}
+				else {
 					buffer[val_read] = '\0';
 
 					client.printOutput(1, buffer, 0, sd);
@@ -129,12 +132,13 @@ void Server::waitToNewConnection() {
 						if (fullMessage.find("QUIT") != string::npos || fullMessage.find("quit") != string::npos ) {
 							client.quit();
 							close(sd);
+							closedSockets.insert(sd);
 							_userSocket.erase(_userSocket.begin() + (int) i);
 						}
 						else
 						{
-							client.addUser(fullMessage, sd);
 							client.setClientSocket(sd);
+							client.addUser(fullMessage, sd);
 							client.parsCommands(fullMessage);
 							client.checkAndExecuteCmd();
 						}
