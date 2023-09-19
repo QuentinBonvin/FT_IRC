@@ -96,7 +96,6 @@ int Client::addUser(string buffer, int socketUser) {
 
 void Client::eraseUser(int socketUser){
 	if(_user.find(socketUser) != _user.end()){
-		cout << "Test" << endl;
 		_user.erase(socketUser);
 		close(socketUser);
 
