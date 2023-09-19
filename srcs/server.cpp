@@ -114,6 +114,7 @@ void Server::waitToNewConnection() {
 				size_t val_read;
 				if ((val_read = recv(sd, buffer, 1024, 0)) == 0) {
 					client.eraseUser(sd);
+					clientBuffers[sd].erase();
 					close(sd);
 					_userSocket.erase(_userSocket.begin() + (int)i);
 				} else {
